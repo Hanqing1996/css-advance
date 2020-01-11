@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .text{font-size:20px; border: 1px solid black;display: inline-block;padding: 5px;
+            position: relative;
+            max-width: 100px;
+            word-break: break-all}
+        .text::before,.text::after{
+            content: '';
+            display: block;
+            border: 10px solid transparent;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 10px;
+        }
+        .text::before{
+            border-top-color: black;
+            top: 100%;
+        }
+        .text::after{
+            border-top-color: white;
+            top: calc(100% - 1px);
+        }
+    </style>
+</head>
+<body>
+<div class="text">I want to tell you something</div>
+</body>
+</html>

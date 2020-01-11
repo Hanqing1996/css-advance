@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parent{
+            width: 200px;
+            height: 200px;
+            padding: 15px;
+            margin: 12px;
+            background: green;
+            text-indent: -10px;
+        }
+
+        /*浮动元素在文字（内联元素）下面*/
+        .float{
+            width:30px;
+            height: 30px;
+            background: blue;
+            float: left;
+        }
+
+        /*浮动元素在块级元素上面*/
+        .child{
+            height:20px;
+            background: purple;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    你好
+    <div class="float">
+        浮动元素的内容
+    </div>
+    <div class="child"></div>
+</div>
+</body>
+</html>

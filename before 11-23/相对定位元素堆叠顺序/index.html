@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parent{
+            width: 200px;
+            height: 200px;
+            padding: 15px;
+            margin: 12px;
+            background: green;
+            text-indent: -10px;
+        }
+
+        /*浮动元素在文字（内联元素）下面*/
+        .float{
+            width:30px;
+            height: 30px;
+            background: blue;
+            float: left;
+        }
+
+        /*浮动元素在块级元素上面*/
+        .child{
+            height:20px;
+            background: purple;
+        }
+
+        /*相对定位元素在浮动元素，内联元素上面*/
+        .relative{
+            height: 20px;
+            position: relative;
+            background: grey;
+            top:-30px;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    你好
+    <div class="float">
+    </div>
+    <div class="child"></div>
+    <div class="relative"></div>
+</div>
+</body>
+</html>

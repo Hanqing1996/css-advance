@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        *{margin: 0;padding:0;}
+        /*去除a下划线*/
+        a{color: inherit;text-decoration: none}
+        /*去除ul黑点*/
+        ul,ol{list-style: none}
+        .logo{width: 60px;height: 60px;background: grey;border-radius: 30px}
+        /*导航栏横向排布*/
+        .clearfix:after{content: '';display: none;clear: both;}
+        .nav>li{float:left;padding: 10px}
+        .nav{display: none;background-color: grey}
+        .active{display: block}
+        header{position: relative}
+        header>button{position: absolute;top:0;right:0;display: block}
+        @media (min-width: 600px){
+            .nav{display: block;position: absolute;top:0;right:200px;}
+            .menu{display: none;}  　
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo"></div>
+    <button class="menu">菜单</button>
+    <ul class="clearfix nav">
+        <li><a href="#">导航</a></li>
+        <li><a href="#">导航</a></li>
+        <li><a href="#">导航</a></li>
+        <li><a href="#">导航</a></li>
+        <li><a href="#">导航</a></li>
+    </ul>
+    <script>
+        const button=document.getElementsByClassName('menu')[0]
+        const nav=document.getElementsByClassName('nav')[0]
+        button.addEventListener('click',()=>{
+            if(nav.classList.contains('active')) nav.classList.remove('active')
+            else nav.classList.add('active')
+        })
+    </script>
+</header>
+</body>
+</html>

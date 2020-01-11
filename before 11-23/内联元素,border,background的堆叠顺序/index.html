@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parent{
+            width: 200px;
+            height: 200px;
+            /*border 浮在背景上面*/
+            border: 10px solid rgba(255,0,0,0.5);
+            padding: 15px;
+            margin: 12px;
+            background: green;
+            /*text 浮在 border 上面*/
+            text-indent: -25px;
+        }
+
+        .child{
+            height:20px;
+            background: purple;
+            /* div.child 浮在 text 下面 */
+            margin-top: -15px;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">12345678
+<div class="child"></div>
+</div>
+</body>
+</html>

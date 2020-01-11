@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .son{
+            border: 1px solid red;
+            margin:20px;
+        }
+        .dad{
+            /*不加dad.border,会导致son的margin跑到div外面*/
+            border: 0.1px solid green;
+        }
+    </style>
+</head>
+<body>
+<div class="dad">
+    <div class="son">
+        111
+    </div>
+</div>
+</body>
+</html>

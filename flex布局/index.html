@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .child{background: white;border: 1px solid red;height: 75px;flex-wrap: nowrap}
+        .parent{border: 1px solid black;display: flex;background: #ddd;
+        /*100px远远小于child1,child2,child3自身由内容填充起的宽度*/
+        width: 200px}
+        .child1{
+            /* 令child1宽度占parent宽度的2/(2+1+3) */
+            flex-shrink: 1;
+        }
+        .child2{
+            flex-shrink: 3;
+        }
+        .child3{
+            flex-shrink: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <button class="child">
+
+    </button>
+</div>
+
+</body>
+</html>
