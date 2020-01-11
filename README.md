@@ -207,3 +207,66 @@ div{
     <div class="label">天津</div>
 </div>
 ```
+* 【vue】CSS Transition:![](/images/4.gif) 
+```
+<div id="demo">
+    <button v-on:click="show = !show">
+        Toggle
+    </button>
+    <transition name="fade">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+```
+```
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to{
+    opacity: 0;
+}
+```
+```
+new Vue({
+    el: '#demo',
+    data: {
+        show: true
+    }
+})
+```
+* 【vue】 CSS animation:![](/images/5.gif) 
+```
+<div id="example-2">
+    <button @click="visible = !visible">Toggle show</button>
+    <transition name="fade">
+        <p v-if="visible">hello</p>
+    </transition>
+</div>
+```
+```
+.fade-enter-active{
+    animation: fade-in 10s;
+}
+.fade-leave-active {
+    animation: fade-in 10s reverse;
+}
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+```
+```
+new Vue({
+    el: '#example-2',
+    data: {
+        visible: false
+    }
+})
+```
