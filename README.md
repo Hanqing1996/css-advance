@@ -129,6 +129,16 @@ button{display: block}
 </div>
 ```
 ---
+* flex 实现居中
+```
+.parent{
+    display:flex
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+```
+---
 * flex-grow: 控制child膨胀比例![](/images/14.jpg)   
 child自身由内容填充的宽度达不到parent宽度,则需要给child加一个flex-grow
 ```
