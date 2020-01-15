@@ -6,10 +6,10 @@
 4. 手机端要加一个 meta
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 5. 手机端的交互方式不一样
-    * 没有 hover
-    * 有 touch 事件
-    * 没有 resize
-    * 没有滚动条
+> 没有 hover
+> 有 touch 事件(在PC上，按下鼠标键模拟touchstart,按住鼠标键并拖动模拟touchmove,松开鼠标键表示touchend)
+> 没有 resize
+> 没有滚动条
     
 #### 不用 file 协议怎么打开 html    
 * 安装
