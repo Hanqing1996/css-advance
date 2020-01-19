@@ -280,3 +280,14 @@ new Vue({
     }
 })
 ```
+* overflow:hidden:![](/images/6.gif) 
+```
+<g-layout style="overflow:hidden;">
+    <g-sider>sider</g-sider>
+    <g-layout>
+        <g-header>header</g-header>
+        <g-contentstyle="height: 348px">content</g-content>
+        <g-footer>footer</g-footer>
+    </g-layout>
+</g-layout>
+```
