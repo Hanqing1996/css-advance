@@ -292,7 +292,7 @@ new Vue({
     </g-layout>
 </g-layout>
 ```
-* white-space: nowrap;![](/images)
+* white-space: nowrap;![](/images/18.jpg)
 ```
 <div class="g-nav">
     <div class="g-nav-item">平台介绍</div>
