@@ -360,7 +360,7 @@ new Vue({
 * 多级导航栏:![](/images/20.jpg)
 ```
 <div class="g-nav">
-    <div class="g-nav-item">平台介绍</div>
+    <div class="g-nav-item ">平台介绍</div>
     <div class="g-sub-nav">
         <div class="g-nav-item">数据接口</div>
         <div class="g-sub-nav-popover">
@@ -383,7 +383,6 @@ new Vue({
 .g-nav {
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
 }
 .g-nav-item {
     padding: 10px 20px;
@@ -392,22 +391,22 @@ new Vue({
     position: relative;
 }
 .g-sub-nav-popover {
+    margin-top: 1px;
     position: absolute;
+    background-color:white;/*修改popover背景色*/
     top: 100%;
     left: 0;
     border: 1px solid black;
     white-space: nowrap; /*不许换行，防止文字竖向排列*/
 }
 .g-sub-nav .g-sub-nav .g-sub-nav-popover{
-    position: absolute;
+    margin-left: 8px;
     top: 0%;
     left: 100%;
-    border: 1px solid black;
-    white-space: nowrap; /*不许换行，防止文字竖向排列*/
 }
 ```
 ---
-* 为选中项添加不占空间的底边:![](/images/21.jpg)
+* ::after为选中项添加不占空间的底边:![](/images/21.jpg)
 ```
 <div class="g-nav">
     <div class="g-nav-item">平台介绍</div>
@@ -433,4 +432,11 @@ new Vue({
      border-bottom:1px solid blue;
      width:100%;
  }
+
+/**
+如果要消除after效果，则用
+.selected::after{
+display:none
+}
+*/
 ```
