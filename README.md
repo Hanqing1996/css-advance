@@ -440,3 +440,34 @@ display:none
 }
 */
 ```
+---
+* 居中不行浮动凑,儿子不行爸爸动:![](/images/22.jpg)
+```
+<span class="g-sub-nav-label">
+    <span class="title">
+        <slot name="title"></slot>
+    </span>
+    <span class="g-sub-nav-icon">
+        <Icon v-if="open" name="left"></Icon>
+        <Icon v-else name="right"></Icon>
+    </span>
+</span>
+```
+尝试N次，无法让Icon在g-sub-nav-icon中居中，于是......
+```
+.title{
+    display: inline-block;
+    min-width: 4em; // 防止title字数过少时"露馅"
+    background-color: red;
+}
+
+.g-sub-nav-label{
+    position: relative;
+    >.g-sub-nav-icon{
+        position: absolute;
+        /*调整姿势，直到看起来达到"居中"的效果*/
+        top:30%;
+        left: 80%;
+    }
+}
+```
