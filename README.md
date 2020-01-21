@@ -292,7 +292,7 @@ new Vue({
     </g-layout>
 </g-layout>
 ```
-* white-space: nowrap;![](/images/18.jpg)
+* white-space: nowrap:![](/images/18.jpg)
 ```
 <div class="g-nav">
     <div class="g-nav-item">平台介绍</div>
@@ -325,5 +325,26 @@ new Vue({
     left: 0;
     border: 1px solid black;
     white-space: nowrap; /*不许换行，防止文字竖向排列*/
+}
+```
+* 扩大导航栏 span 可触面积:![](/images/19.jpg)
+```
+<div class="nav">
+    <!--这里必须是span,不能是div-->
+    <span class="nav-item">
+        数据接口
+    </span>
+</div>
+```
+```
+.nav{
+    position: relative;
+    border: 1px solid red;
+}
+.nav-item{
+    padding: 10px 20px;
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top; /*display: inline-block后面一定要加这一句*/
 }
 ```
