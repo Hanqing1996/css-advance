@@ -406,3 +406,31 @@ new Vue({
     white-space: nowrap; /*不许换行，防止文字竖向排列*/
 }
 ```
+---
+* 为选中项添加不占空间的底边:![](/images/21.jpg)
+```
+<div class="g-nav">
+    <div class="g-nav-item">平台介绍</div>
+    <div class="g-nav-item selected">联系方式</div>
+    <div class="g-nav-item">数据接口</div>
+</div>
+```
+```
+.g-nav {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid red;
+}
+.g-nav-item {
+    padding: 10px 20px;
+    position: relative;
+}
+.selected::after{
+     content:'';
+     position:absolute;
+     left:0;
+     bottom: 0px;
+     border-bottom:1px solid blue;
+     width:100%;
+ }
+```
