@@ -1,3 +1,5 @@
+> padding:里面。margin:外面 
+
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
 ```
@@ -201,6 +203,7 @@ div{
 }
 <div>1111111111111111111111111111111111</div>
 ``` 
+---
 * 设置进度条:![](/images/17.jpg) 
 ```
 .items{
@@ -218,6 +221,7 @@ div{
     <div class="label">天津</div>
 </div>
 ```
+---
 * 【vue】CSS Transition:![](/images/4.gif) 
 ```
 <div id="demo">
@@ -245,6 +249,7 @@ new Vue({
     }
 })
 ```
+---
 * 【vue】 CSS animation:![](/images/5.gif) 
 ```
 <div id="example-2">
@@ -281,6 +286,7 @@ new Vue({
     }
 })
 ```
+---
 * overflow:hidden:![](/images/6.gif) 
 ```
 <g-layout style="overflow:hidden;">
@@ -292,6 +298,7 @@ new Vue({
     </g-layout>
 </g-layout>
 ```
+---
 * white-space: nowrap:![](/images/18.jpg)
 ```
 <div class="g-nav">
@@ -327,6 +334,7 @@ new Vue({
     white-space: nowrap; /*不许换行，防止文字竖向排列*/
 }
 ```
+---
 * 扩大导航栏 span 可触面积:![](/images/19.jpg)
 ```
 <div class="nav">
@@ -346,5 +354,55 @@ new Vue({
     border: 1px solid black;
     display: inline-block;
     vertical-align: top; /*display: inline-block后面一定要加这一句*/
+}
+```
+---
+* 多级导航栏:![](/images/20.jpg)
+```
+<div class="g-nav">
+    <div class="g-nav-item">平台介绍</div>
+    <div class="g-sub-nav">
+        <div class="g-nav-item">数据接口</div>
+        <div class="g-sub-nav-popover">
+            <div class="g-nav-item">资讯数据</div>
+            <div class="g-nav-item">行业数据</div>
+            <div class="g-sub-nav">
+                <div class="g-nav-item">社会数据</div>
+                <div class="g-sub-nav-popover">
+                    <div class="g-nav-item">人口数据</div>
+                    <div class="g-nav-item">生产数据</div>
+                    <div class="g-nav-item">福利数据</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="g-nav-item">联系方式</div>
+</div>
+```
+```
+.g-nav {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+}
+.g-nav-item {
+    padding: 10px 20px;
+}
+.g-sub-nav {
+    position: relative;
+}
+.g-sub-nav-popover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid black;
+    white-space: nowrap; /*不许换行，防止文字竖向排列*/
+}
+.g-sub-nav .g-sub-nav .g-sub-nav-popover{
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    border: 1px solid black;
+    white-space: nowrap; /*不许换行，防止文字竖向排列*/
 }
 ```
