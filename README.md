@@ -167,7 +167,8 @@ child自身由内容填充的宽度达不到parent宽度,则需要给child加一
 .text{font-size:20px; border: 1px solid black;display: inline-block;padding: 5px;
     position: relative;
     max-width: 100px;
-    word-break: break-all}
+    word-break: break-all //单词断行
+}
 .text::before,.text::after{
     content: '';
     display: block;
@@ -290,4 +291,39 @@ new Vue({
         <g-footer>footer</g-footer>
     </g-layout>
 </g-layout>
+```
+* white-space: nowrap;![](/images)
+```
+<div class="g-nav">
+    <div class="g-nav-item">平台介绍</div>
+    <div class="g-sub-nav">
+        <div class="g-nav-item">数据接口</div>
+        <div class="g-sub-nav-popover">
+            <div class="g-nav-item">资讯数据</div>
+            <div class="g-nav-item">行业数据</div>
+            <div class="g-nav-item">社会数据</div>
+        </div>
+    </div>
+    <div class="g-nav-item">联系方式</div>
+</div>
+```
+```
+.g-nav {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+}
+.g-nav-item {
+    padding: 10px 20px;
+}
+.g-sub-nav {
+    position: relative;
+}
+.g-sub-nav-popover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid black;
+    white-space: nowrap; /*不许换行，防止文字竖向排列*/
+}
 ```
