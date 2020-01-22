@@ -471,3 +471,24 @@ display:none
     }
 }
 ```
+* use-select 避免用户在点击过快时选中文字（点击和选中是两个不同的操作，应该正交）
+```
+.g-nav {
+    ......
+    user-select: none;
+}
+```
+* Icon旋转:![](/images/icon.gif)
+```
+<span class="g-sub-nav-icon" :class="{open}">
+    <Icon name="right"></Icon>
+</span>
+```
+```
+>.g-sub-nav-icon{
+    transition: transform 250ms;
+    &.open {
+        transform: rotate(180deg);/*left->right*/
+    }
+```
+
