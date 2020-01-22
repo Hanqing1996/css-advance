@@ -237,7 +237,14 @@ div{
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to{
+
+/* 从无到有的过程，控制开始时候的状态，必要*/
+.fade-enter{
+    opacity: 0;
+}
+
+/* 从无到有的过程，控制结束时候的状态，必要*/
+.fade-leave-to{
     opacity: 0;
 }
 ```
@@ -297,6 +304,32 @@ new Vue({
         <g-footer>footer</g-footer>
     </g-layout>
 </g-layout>
+```
+```
+    <transition name="slide">
+        <div class="sider" :class="siderClass" v-show="visible">
+            <div class="hideButton" @click="hideSider">
+                <g-button>hide</g-button>
+            </div>
+            <slot></slot>
+        </div>
+    </transition>
+
+        data(){
+          return {
+              visible:true
+          }
+        }
+
+    /*时长*/
+    .slide-enter-active,.slide-leave-active {
+        transition: all 10s
+    }
+
+    /*从有到无的结束状态，由于只存在visible由true变为false的单一过程，所以不需要设置.slide-leave*/
+    .slide-leave-to {
+        margin-left: -200px;
+    }
 ```
 ---
 * white-space: nowrap:![](/images/18.jpg)
@@ -490,5 +523,11 @@ display:none
     &.open {
         transform: rotate(180deg);/*left->right*/
     }
+```
+* 内联元素不对齐
+```
+.wrapper{
+    vertical-align:middle
+}
 ```
 
