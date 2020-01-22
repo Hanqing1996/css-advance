@@ -1,4 +1,10 @@
 > padding:里面。margin:外面 
+```
+let {height} = el.getBoundingClientRect()
+el.style.height = 0
+el.getBoundingClientRect() // 浏览器会自动合并height的设置，因此加此一行计算height高度使得上一行代码生效
+el.style.height = `${height}px`
+```
 
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
