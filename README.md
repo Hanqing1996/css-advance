@@ -300,7 +300,7 @@ new Vue({
 })
 ```
 ---
-* overflow:hidden:![](/images/6.gif) 
+* 没有加overflow:hidden之前:![](/images/over.gif) 
 ```
 <g-layout style="overflow:hidden;">
     <g-sider>sider</g-sider>
@@ -337,6 +337,7 @@ new Vue({
         margin-left: -200px;
     }
 ```
+效果:![](/images/6.gif) 
 ---
 * white-space: nowrap:![](/images/18.jpg)
 ```
@@ -536,4 +537,19 @@ display:none
     vertical-align:middle
 }
 ```
+* 用户往nav-item里填了个a标签,怎么修改a标签样式使其与其它nav-item一致:![](/images/23.jpg)
+```
+<g-nav-item name="introduction"><a href="https://baidu.com">平台介绍</a></g-nav-item>
+```
+```
+// nav-item.vue
+.g-nav-item{
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+```
+效果:![](/images/23.jpg)
+---
 
