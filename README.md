@@ -570,4 +570,10 @@ span{
      width:20px
 }
 ``` 
+* 悬浮变蓝:![](/images/hover.gif)
+```
+&:hover{
+    border-color: $blue;
+}
+```
 
