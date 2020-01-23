@@ -567,7 +567,7 @@ span{
 ![](/images/26.jpg)
 ```
 span{
-    width:20px
+     width:20px
 }
 ``` 
 
