@@ -5,7 +5,12 @@ el.style.height = 0
 el.getBoundingClientRect() // 浏览器会自动合并height的设置，因此加此一行计算height高度使得上一行代码生效
 el.style.height = `${height}px`
 ```
-
+> span 内含空格，可能导致文字无法居中，此时应该使用flex居中
+```
+<span class="item">
+222
+</span>
+```
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
 ```
@@ -552,4 +557,17 @@ display:none
 ```
 效果:![](/images/23.jpg)
 ---
+* min-width和width的区别
+![](/images/25.jpg)
+```
+span{
+    min-width:20px
+}
+``` 
+![](/images/26.jpg)
+```
+span{
+    width:20px
+}
+``` 
 
