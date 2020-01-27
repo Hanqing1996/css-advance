@@ -516,11 +516,17 @@ display:none
     }
 }
 ```
-* use-select 避免用户在点击过快时选中文字（点击和选中是两个不同的操作，应该正交）
+* use-select:避免用户在点击过快时选中文字（点击和选中是两个不同的操作，应该正交）
 ```
 .g-nav {
     ......
     user-select: none;
+}
+```
+* 禁止点击:用户鼠标悬浮在图标上时呈现箭头图案（允许点击：呈现光标图案）
+```
+.currentPage{
+    cursor: default;
 }
 ```
 * Icon旋转:![](/images/icon.gif)
@@ -574,6 +580,61 @@ span{
 ```
 &:hover{
     border-color: $blue;
+}
+```
+* table:![](/images/table.jpg)
+```
+<table class="g-table,bordered">
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>分数</th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>乔斯达</td>
+            <td>100</td>
+        <tr>
+        <tr>
+            <td>承太郎</td>
+            <td>99</td>
+        <tr>
+        ...
+    </tbody>
+</table>
+```
+```
+.g-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-bottom: 1px solid $grey;
+
+    /*加边框*/
+    &.bordered{
+        border: 1px solid $grey;
+        td,th{
+            border: 1px solid $grey;
+        }
+    }
+
+    /*默认不加边框,除非有 class:bordered*/
+    th, td {
+        border-bottom: 1px solid $grey;
+        text-align: left;
+        padding: 8px;
+    }
+    tbody{
+        >tr{
+            &:nth-child(odd){
+                background-color: $white;
+            }
+            &:nth-child(even){
+                background-color: lighten($grey,10%);
+            }
+        }
+    }
 }
 ```
 
