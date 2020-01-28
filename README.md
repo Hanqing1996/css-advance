@@ -631,10 +631,15 @@ span{
                 background-color: $white;
             }
             &:nth-child(even){
-                background-color: lighten($grey,10%);
+                background-color: lighten($grey,10%);  // $grey加浅10%
             }
         }
     }
 }
+```
+* checkbox:半选 ![](/images/checkbox.jpg)
+```
+<input type="checkbox" id="checkbox">
+document.getElementById('checkbox').indeterminate = true
 ```
 
