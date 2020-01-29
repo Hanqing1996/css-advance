@@ -226,7 +226,7 @@ div{
 <div>1111111111111111111111111111111111</div>
 ``` 
 ---
-* 设置进度条:![](/images/17.jpg) 
+* 设置滚动条:![](/images/17.jpg) 
 ```
 .items{
     border: 1px solid red;
@@ -534,10 +534,16 @@ display:none
     user-select: none;
 }
 ```
-* 禁止点击:用户鼠标悬浮在图标上时呈现箭头图案（允许点击：呈现光标图案）
+* 禁止点击:用户鼠标悬浮在图标上时呈现箭头图案（允许点击：呈现光标/小手图案）
 ```
 .currentPage{
     cursor: default;
+}
+```
+* 用户鼠标悬浮在图标上时呈现小手图案:
+```
+.icon{
+    cursor: point;
 }
 ```
 * Icon旋转:![](/images/icon.gif)
@@ -665,15 +671,76 @@ span{
                 background-color: $white;
             }
             &:nth-child(even){
-                background-color: lighten($grey,10%);  // $grey加浅10%
+                background-color: lighten($grey,10%);  // $grey 加浅10%,加深用 darken
             }
         }
     }
 }
 ```
-* checkbox:半选 ![](/images/checkbox.jpg)
+* checkbox:半选: ![](/images/checkbox.jpg)
 ```
 <input type="checkbox" id="checkbox">
 document.getElementById('checkbox').indeterminate = true
 ```
+* svg 填充颜色:![](/images/svg.jpg)
+```
+svg {
+    fill:$grey;
+}
+```
+* 排序按钮交互:![](/images/svg.jpg)
+> 上下空
+```
+<span @click="changeSortRule(column.field)">
+    <icon name="up"></icon>
+    <icon name="down"></icon>
+</span>
+```
+```
+changeSortRule(key){
+    let copy=this.orderBy
+    // 上->下
+    if(copy[key]==='asc'){
+        copy[key]='desc'
+    // 下->空
+    } else if(copy[key]==='desc'){
+        copy[key]=true
+    // 空->上
+    }else{
+        copy[key]='asc'
+    }
+    this.$emit("update:orderBy",copy)
+}
+```
+* loading 悬浮居中:![](/images/loading.jpg)
+> relative 加于父元素，absolute 加于子元素，切记
+```
+<div class="tableWrapper">
+    <table>
+    </table>
+    <div :class="{loading}">
+        <icon name="loading"></icon>
+    </div>
+</div>
+```
+```
+.tableWrapper{
+    position: relative;
+
+    .loading {
+        position: absolute;top: 0;left: 0;
+        width: 100%;height: 100%; // 让 .loading "铺"满整个 .tableWrapper
+        display: flex;align-items: center;justify-content: center; // flex居中
+        background: rgba(255, 255, 255, 0.8); // 设置背景半透明
+    }
+}
+```
+
+
+
+
+
+
+
+
 
