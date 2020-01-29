@@ -151,6 +151,17 @@ button{display: block}
     align-items: center;
 }
 ```
+* display对inline元素同样有效:
+```
+
+```
+```
+.iconWrapper {
+    background-color: red;
+    display:flex;
+    flex-direction: column;
+}
+```
 ---
 * flex-grow: 控制child膨胀比例![](/images/14.jpg)   
 child自身由内容填充的宽度达不到parent宽度,则需要给child加一个flex-grow
@@ -542,10 +553,33 @@ display:none
         transform: rotate(180deg);/*left->right*/
     }
 ```
-* 内联元素不对齐
+* 对齐内联元素:![](/images/name.jpg)
 ```
-.wrapper{
-    vertical-align:middle
+// 对齐 .text 和 .iconWrapper 这两个内联元素
+<span class="text">
+    {{column.text}}
+</span>
+<span class="iconWrapper" style="">
+    <icon name="up"></icon>
+    <icon name="down"></icon>
+</span>
+```
+方法：将两个元素用 div 包裹,然后使用flex对齐:![](/images/up.jpg)
+```
+<div>
+    <span class="text">
+        {{column.text}}
+    </span>
+    <span class="iconWrapper" style="">
+        <icon name="up"></icon>
+        <icon name="down"></icon>
+    </span>
+</div>
+```
+```
+.wrapper {
+    display: flex;
+    align-items: center;
 }
 ```
 * 用户往nav-item里填了个a标签,怎么修改a标签样式使其与其它nav-item一致:![](/images/23.jpg)
