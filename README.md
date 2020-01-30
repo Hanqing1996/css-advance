@@ -1,4 +1,14 @@
+#### 去除页面 margin,padding
+```
+*{
+    margin: 0;
+    padding:0;
+}
+```
+
 > padding:里面。margin:外面 
+
+
 ```
 let {height} = el.getBoundingClientRect()
 el.style.height = 0
@@ -662,7 +672,7 @@ span{
     /*默认不加边框,除非有 class:bordered*/
     th, td {
         border-bottom: 1px solid $grey;
-        text-align: left;
+        text-align: left; // th 默认文字居中
         padding: 8px;
     }
     tbody{
@@ -735,11 +745,84 @@ changeSortRule(key){
     }
 }
 ```
+* table 删除 tbody ,thead 宽度也会随之改变
+
+#### DOM操作
+```
+let table2=this.$refs.table.cloneNode(true)
+this.$refs.wrapper.appendChild(table2)
+
+// 修改 table2 的宽度，否则接下来 th 的宽度是无法设置成功的
+let {width:oldtableWidth2}=table2.getBoundingClientRect()
+table2.style.width=`${oldtableWidth2}px`
+
+let tableHeader=Array.from(this.$refs.table.children).filter(node=>node.tagName.toLowerCase()==='thead')[0]
+let tableHeader2
+
+// 删除 table2 的 tbody
+Array.from(table2.children).map(node=>{
+    if(node.tagName.toLowerCase()!=='thead'){
+        node.remove()
+    } else{
+        tableHeader2=node
+    }
+})
+
+// 修改 table2 中每个 th 的宽度
+Array.from(tableHeader.children[0].children).map((th,i)=>{
+    const {width}=th.getBoundingClientRect()
+    tableHeader2.children[0].children[i].style.width=`${width}px`
+})
+
+table2.classList.add('tableCopy')
+this.$refs.wrapper.appendChild(table2)
+```
 
 
+#### getBoundingClientRect()
+> 返回四个值
+* left:元素相对于左上角视口的横向距离
+* top:元素相对于左上角视口的纵向距离
+* width:元素宽度
+* height:元素高度
+> 注意 left 和 top 不是相对于父元素左上角的距离，是相对于浏览器左上角的距离
+```
+<div class="parent">
+    <div class="box"></div>
+</div>
+```
+```
+*{
+    margin: 0;
+    padding:0;
+}
+.parent{
+    margin: 10px;
+}
+.box{
+    width: 100px;
+    height:200px;
+    background-color: red;
+}
+```
+```
+let box=document.getElementsByClassName('box')[0]
+let {left:left2}=box.getBoundingClientRect()
+console.log(left2);// 10px
+```
 
-
-
+#### 固定表头（遇到最难的技术问题）
+1. 尝试复制 table 得到 table2,再去掉 table2 的 tbody。采用定位方式让 thead 固定在 table 头部。
+> 问题:win10的chrome中，滚动条会占17px,这导致 table 整体左移了17px,使得 table2 的宽度与 table 不同
+2. 用js修改 table2 宽度，使之与 table 一致
+> 问题:table 去掉 tbody 后，thead 中的 th 宽度会发生变化
+3. 遍历 table2 的每一个 th,使之宽度与 table 的 th 一致
+> 问题:在浏览器宽度变化时，th 宽度将再次不一致（这是由于 table 有 tbody,而 table2 没有导致的）
+4. 监听 resize 事件,每次浏览器宽度变化时再次修改 table2 宽度和 th宽度
+```
+window.addEventListener('resize', this.updateWidth)
+```
+> 
 
 
 
