@@ -570,6 +570,8 @@ display:none
 ```
 ```
 >.g-sub-nav-icon{
+    display: inline-block;
+    vertical-align: middle;
     transition: transform 250ms;
     &.open {
         transform: rotate(180deg);/*left->right*/
