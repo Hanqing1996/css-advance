@@ -1,3 +1,58 @@
+![](/images/flex.gif)
+
+
+#### [line-height 和 font-size 的关系](https://xiedaimala.com/tasks/0e9495f8-df67-44d3-bdd5-ae7e18e6be14/video_tutorials/197fe0f7-625e-4a01-8414-866f2b57b121)
+* 取决于字体(font-family)，yahei:1,sc:1.4(由字体设计师决定的)
+* "这是字"是一个内联元素
+```
+// div.eight=text.line-height
+div{
+    font-size: 20px;
+}
+```
+```
+<div>
+    这是字
+</div>
+```
+
+#### 如果 div 里面只有一个内联元素，那么 div的高度等于内联元素的行高
+
+
+#### 两个 inline 元素（span,li....）之间如果有任何看不见的字符，都会只表示成一个空格![](/images/inline.jpg)
+```
+<span>1</span>
+<span>2</span>
+```
+
+
+
+#### 为什么会有 line-height
+> 行和行之间应该要有间距
+```
+abcfg
+
+xsdsd
+```
+
+
+#### 考虑width的问题，不能用定宽思维，要用填充思维
+* .small:10% 不代表大.big定宽了，而是多个width为10%的.small堆在一起，才决定了整个.big的宽度
+```
+<div class="big">
+    <div class="small"></div>
+    <div class="small"></div>
+    <div class="small"></div>
+    ......
+</div>
+```
+
+
+#### css 优先级
+> 元素上的style最高
+> <style></style> 中越后面越高
+> 可以在控制台中查看style，如果某条属性被划去，说明该样式被覆盖了（如果写的css不起效，应该首先排查这一点）
+
 #### width px不行，就试试%
 这么写可能不奏效
 ```
@@ -787,3 +842,9 @@ td, th {
     border: 1px solid grey;
 }
 ```
+
+
+#### 控制台样式划线 
+> 表示样式不起效果
+* 打钩：样式被注释了，所以不起效果
+* 没打钩：样式被覆盖了，所以不起效果
