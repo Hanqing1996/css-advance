@@ -1,9 +1,55 @@
-![](/images/flex.gif)
----
+#### 浏览器是有最小宽度限制的
+> 比如 chrome 浏览器最小宽度为480px左右
 
+#### 文字省略溢出:![](/images/overflow.jpg)
+```
+div{
+    border: 1px solid red;
+    /*控制文字不换行*/
+    white-space: nowrap;
+    /*超过文档宽度的部分隐藏（也就是没有进度条了）*/
+    overflow: hidden;
+    /*超过文档宽度的部分变成省略号*/
+    text-overflow:ellipsis;
+}
+```
+```
+<div>11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 11111111111111111111111111111111111111111111111111111111111111111</div>
+```
+
+
+#### 文字两端对齐:![](/images/alignment.jpg)
+```
+<div>
+    <span>姓名</span><br>
+    <span>联系方式</span>
+</div>
+```
+```
+div{
+    border: 1px solid red;
+    font-size: 20px;
+}
+span{
+    border: 1px solid green;
+    display: inline-block;
+    width:5em;
+    text-align: justify;
+    line-height: 20px;
+    overflow: hidden;
+    height: 20px;
+}
+span::after{
+    content:'';
+    display: inline-block;
+    width: 100%;
+    border: 1px solid blue;
+}
+```
+---
 #### [line-height 和 font-size 的关系](https://xiedaimala.com/tasks/0e9495f8-df67-44d3-bdd5-ae7e18e6be14/video_tutorials/197fe0f7-625e-4a01-8414-866f2b57b121)
 * 取决于字体(font-family)，yahei:1,sc:1.4(由字体设计师决定的)
-* "这是字"是一个内联元素
+* "这是字"是一个内联元素(text)
 ```
 // div.eight=text.line-height
 div{
@@ -16,19 +62,72 @@ div{
 </div>
 ```
 ---
-#### 如果 div 里面只有一个内联元素，那么 div的高度等于内联元素的行高
+
+#### 流的特点:![](/images/stream.gif)
+> 内联元素像水一样流淌在块级元素中，整个块级元素宛如一个大水泡。如果横向拖拽浏览器发生变化,那么块级元素的宽高都将发生变化。
+```
+<div>
+    1111111111
+    2222222222
+    3333333333
+    4444444444
+    5555555555
+    1111111111
+    2222222222
+    3333333333
+    4444444444
+    5555555555
+    1111111111
+    2222222222
+    3333333333
+    4444444444
+    5555555555
+</div>
+```
+```
+div{
+    border:1px solid red;
+}
+```
+
+
+
+
+#### div 里有内联元素，div 高度如何计算?
+* 如果 div 里面只有一行，那么 div的高度等于内联元素的行高
+* 如果 div 里面有多行，那么 div的高度等于各行行高之和
+> 这里牵涉到流的特点，流的特点
 ---
+
+
+
+#### 一旦给元素（inline,block）添加了宽/高度值（比如600px,百分比除外），它就会失去流动性
+![](/images/lost.gif)
+```
+<span>123</span>
+```
+```
+span {
+    border:1px solid red;
+    display: block;
+    width: 600px;
+}
+```
+
+
 
 #### 两个 inline 元素（span,li....）之间如果有任何看不见的字符，都会只表示成一个空格![](/images/inline.jpg)
 ```
-<span>1</span>
-<span>2</span>
+<div> 
+    <span>1</span>
+    <span>2</span>
+</div>
 ```
 ---
 
 
 #### 为什么会有 line-height
-> 行和行之间应该要有间距
+> 字体的设计师认为行和行之间应该要有间距，而不同的字体要配合对应的间距才有良好的视觉效果
 ```
 abcfg
 
@@ -87,7 +186,12 @@ el.style.height = `${height}px`
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
 ```
-.clearfix:after{content: '';display: block;clear: both;}
+.clearfix:after{
+/*这三句话都要*/
+content: '';
+display: block;
+clear: both;
+}
 /*IE6:.clearfix{zoom:1}*/
 .nav>li{float:left;}
 
