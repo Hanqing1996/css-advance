@@ -1,5 +1,5 @@
 ![](/images/flex.gif)
-
+---
 
 #### [line-height 和 font-size 的关系](https://xiedaimala.com/tasks/0e9495f8-df67-44d3-bdd5-ae7e18e6be14/video_tutorials/197fe0f7-625e-4a01-8414-866f2b57b121)
 * 取决于字体(font-family)，yahei:1,sc:1.4(由字体设计师决定的)
@@ -15,16 +15,16 @@ div{
     这是字
 </div>
 ```
-
+---
 #### 如果 div 里面只有一个内联元素，那么 div的高度等于内联元素的行高
-
+---
 
 #### 两个 inline 元素（span,li....）之间如果有任何看不见的字符，都会只表示成一个空格![](/images/inline.jpg)
 ```
 <span>1</span>
 <span>2</span>
 ```
-
+---
 
 
 #### 为什么会有 line-height
@@ -34,7 +34,7 @@ abcfg
 
 xsdsd
 ```
-
+---
 
 #### 考虑width的问题，不能用定宽思维，要用填充思维
 * .small:10% 不代表大.big定宽了，而是多个width为10%的.small堆在一起，才决定了整个.big的宽度
@@ -46,19 +46,19 @@ xsdsd
     ......
 </div>
 ```
-
+---
 
 #### css 优先级
 > 元素上的style最高
 > <style></style> 中越后面越高
 > 可以在控制台中查看style，如果某条属性被划去，说明该样式被覆盖了（如果写的css不起效，应该首先排查这一点）
-
+---
 #### width px不行，就试试%
 这么写可能不奏效
 ```
 <th width="20%">hhh</th>
 ```
-
+---
 #### 去除页面 margin,padding
 ```
 *{
@@ -66,9 +66,9 @@ xsdsd
     padding:0;
 }
 ```
-
+---
 > padding:里面。margin:外面 
-
+---
 
 ```
 let {height} = el.getBoundingClientRect()
@@ -76,12 +76,14 @@ el.style.height = 0
 el.getBoundingClientRect() // 浏览器会自动合并height的设置，因此加此一行计算height高度使得上一行代码生效
 el.style.height = `${height}px`
 ```
+---
 > span 内含空格，可能导致文字无法居中，此时应该使用flex居中
 ```
 <span class="item">
 222
 </span>
 ```
+---
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
 ```
@@ -605,18 +607,21 @@ display:none
     user-select: none;
 }
 ```
+---
 * 禁止点击:用户鼠标悬浮在图标上时呈现箭头图案（允许点击：呈现光标/小手图案）
 ```
 .currentPage{
     cursor: default;
 }
 ```
+---
 * 用户鼠标悬浮在图标上时呈现小手图案:
 ```
 .icon{
     cursor: point;
 }
 ```
+---
 * Icon旋转:![](/images/icon.gif)
 ```
 <span class="g-sub-nav-icon" :class="{open}">
@@ -632,6 +637,7 @@ display:none
         transform: rotate(180deg);/*left->right*/
     }
 ```
+---
 * 对齐内联元素:![](/images/name.jpg)
 ```
 // 对齐 .text 和 .iconWrapper 这两个内联元素
@@ -661,6 +667,7 @@ display:none
     align-items: center;
 }
 ```
+---
 * 用户往nav-item里填了个a标签,怎么修改a标签样式使其与其它nav-item一致:![](/images/23.jpg)
 ```
 <g-nav-item name="introduction"><a href="https://baidu.com">平台介绍</a></g-nav-item>
@@ -689,12 +696,14 @@ span{
      width:20px
 }
 ``` 
+---
 * 悬浮变蓝:![](/images/hover.gif)
 ```
 &:hover{
     border-color: $blue;
 }
 ```
+---
 * table:![](/images/table.jpg)
 ```
 <table class="g-table,bordered">
@@ -750,17 +759,20 @@ span{
     }
 }
 ```
+---
 * checkbox:半选: ![](/images/checkbox.jpg)
 ```
 <input type="checkbox" id="checkbox">
 document.getElementById('checkbox').indeterminate = true
 ```
+---
 * svg 填充颜色:![](/images/svg.jpg)
 ```
 svg {
     fill:$grey;
 }
 ```
+---
 * 排序按钮交互:![](/images/svg.jpg)
 > 上下空
 ```
@@ -785,6 +797,7 @@ changeSortRule(key){
     this.$emit("update:orderBy",copy)
 }
 ```
+---
 * loading 悬浮居中:![](/images/loading.jpg)
 > relative 加于父元素，absolute 加于子元素，切记
 ```
@@ -808,6 +821,7 @@ changeSortRule(key){
     }
 }
 ```
+---
 * table:colspan:![](/images/colspan.jpg)
 ```
 <table>
@@ -842,9 +856,10 @@ td, th {
     border: 1px solid grey;
 }
 ```
-
+---
 
 #### 控制台样式划线 
 > 表示样式不起效果
 * 打钩：样式被注释了，所以不起效果
 * 没打钩：样式被覆盖了，所以不起效果
+---
