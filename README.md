@@ -6,6 +6,53 @@
 > 因此用于 sticky 组件中
 
 ---
+#### 一个元素的 position 变为 absolute/fixed 后，它的 height 会变为0:![](/images/before.jpg)
+```
+<header>
+    <div class="logo">sdasdasssadasdasdas</div>
+    <button>菜单</button>
+</header>
+```
+```
+header {
+    position: relative;
+    border:1px solid red;
+}
+
+button {
+    position: absolute;
+    top: 0;
+    right: 0
+}
+```
+#### 对此，常用的做法是添加父元素，然后将父元素的高度设置为脱离文档流的元素高度:![](/images/aaa.jpg)
+```
+<header>
+    <div class="logo">sdasdasssadasdasdas</div>
+    <div class="wrapper">
+        <button>菜单</button>
+    </div>
+</header>
+```
+```
+header {
+    position: relative;
+    border:1px solid red;
+}
+
+.wrapper{
+    height: 24px;/*button 高度*/
+}
+
+ button {
+    position: absolute;
+    top: 0;
+    right: 0
+}
+```
+注意：如果是动态设置父元素的高度的话，必须保证"设置父元素的高度"发生在"元素脱离文档流"之前
+
+---
 * 有些东西的宽度，我们希望是能随浏览器拖拽发生变化的
 > layout,table
 * 有些东西的宽度，不应该随浏览器拖拽发生变化的
@@ -971,6 +1018,19 @@ td, th {
 }
 ```
 ---
+* transform:![](/images/tr.jpg)
+```
+<div class="div"></div>
+```
+```
+.div{
+  width:20px;
+  height:20px;
+  background-color:red;
+  transform:translateX(600%)
+}
+```
+
 
 #### 控制台样式划线 
 > 表示样式不起效果
