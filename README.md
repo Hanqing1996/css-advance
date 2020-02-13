@@ -1019,6 +1019,7 @@ td, th {
 ```
 ---
 * transform:![](/images/tr.jpg)
+> transform 表示的是一种状态
 ```
 <div class="div"></div>
 ```
@@ -1030,6 +1031,37 @@ td, th {
   transform:translateX(600%)
 }
 ```
+* transition:![](/images/trans.gif)
+> transition 表示的是一个过程
+```
+<div class="box"></div>
+```            
+```
+.box{
+  width:20px;
+  height:20px;
+  background-color:red;
+}
+
+.box{
+  /*由当前状态到下一个状态需要1s的时间，速度为匀速，生效属性为 transform*/  
+  transition:all 1s linear 
+}
+```
+```
+let box=document.querySelector('.box')
+let n=0
+setInterval(()=>{
+  n+=100
+  box.style.transform=`translateX(${n}%)`
+},1000)
+```
+
+
+
+
+
+> 控制
 
 
 #### 控制台样式划线 
