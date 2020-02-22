@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .button{
+            position: relative;
+            z-index: 0;
+        }
+        .circle{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top:0;
+            z-index: -1;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <button class="button"> 按钮 <span class="circle"></span></button>
+</body>
+</html>

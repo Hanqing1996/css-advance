@@ -1057,11 +1057,27 @@ setInterval(()=>{
 },1000)
 ```
 
+* [涟漪按钮](https://github.com/Hanqing1996/ripple-button):![](/images/ripple.gif)
 
-
-
-
-> 控制
+* 调整 z-index 令文字在背景 span 上方
+```
+.button{
+    position: relative;
+    z-index: 0;/*这里不可以写成 z-index:auto*/
+}
+.circle{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: -1;
+    background-color: red;
+}
+```
+```
+<button class="button"> 按钮 <span class="circle"></span></button>
+``` 
 
 
 #### 控制台样式划线 

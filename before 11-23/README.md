@@ -132,7 +132,7 @@ rgba(255,0,0,0.5);
 * z-index 是定位元素(position:absolute/relative/fixed) 特有的
 * 对于定位元素(position:absolute/relative/fixed)：z-index 大的浮在上面
     * z-index相同的情况下，HTML中谁在后面谁浮在上面，且若A浮在B上面，则A的子元素浮在B上面（1级小工>2级经理）
-* z-index:auto 等效于 z-index:0
+* z-index:auto 与 z-index:0 是不一样的!!!!!
 * 令相对定位元素的z-index为负数：background>z-index为负数的相对定位元素
 * 父级元素为堆叠上下文（比如定位元素,且设置父级元素z-index不为auto）,则父级元素的子元素若为相对元素且 z-index<0,则该子元素将出现在块级元素与border之间
     * 上面的父级元素称之为堆叠上下文，因为它满足“z-index 值不为 "auto"的 绝对/相对定位”
