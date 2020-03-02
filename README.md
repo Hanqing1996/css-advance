@@ -844,19 +844,20 @@ display:none
 ```
 效果:![](/images/23.jpg)
 ---
-* min-width和width的区别
-![](/images/25.jpg)
+* min-width,max-width:![](/images/3em.jpg)![](/images/9em.jpg)
+> box 的宽度变化范围是5em到8em。内容少于5个字时，box宽度为 5em,内容多于8个字时，box宽度为 8em,
 ```
-span{
-    min-width:20px
-}
-``` 
-![](/images/26.jpg)
+    <div class="box">
+        艾艾艾
+    </div>
 ```
-span{
-     width:20px
+```
+.box{
+    border: 1px solid red;
+    min-width: 5em;
+    max-width: 8em;
 }
-``` 
+```
 ---
 * 悬浮变蓝:![](/images/hover.gif)
 ```
