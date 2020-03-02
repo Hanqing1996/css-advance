@@ -1117,6 +1117,39 @@ setInterval(()=>{
     </div>
 </div>                
 ```
+---
+* box-sizing:border-box
+> 在 CSS 盒子模型的默认定义里，你对一个元素所设置的 width 与 height 只会应用到这个元素的内容区。如果这个元素有任何的 border 或 padding ，绘制到屏幕上时的盒子宽度和高度会加上设置的边框和内边距值。
+```
+<div class="box">
+    
+</div>
+```
+```
+.box{
+    border: 10px solid green;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+```
+> box-sizing:border-box 的作用就是指定 box 的总高/宽度。你想要设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px，那么这100px会包含它的border和padding，内容区的实际宽度是width减去(border + padding)的值。
+```
+<div class="box">
+    
+</div>
+```
+```
+.box{
+    border: 10px solid green;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    box-sizing:border-box
+}
+```
+
+---
 
 
 #### 控制台样式划线 
