@@ -1252,6 +1252,23 @@ svg{
 }
 ```
 ---
+* Dialog 的最右边按钮 margin-right 应该为0:![](/images/button.jpg)
+```
+<button>ok</button>
+<button>cancel</button>
+```
+```
+// scss
+button {
+    margin: 2px 4px;
+    width: 4em;
+    &:first-child {
+        margin-left: 0;
+    }
+    &:last-child {
+        margin-right: 0;
+}
+```
 
 
 
