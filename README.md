@@ -1079,6 +1079,45 @@ setInterval(()=>{
 <button class="button"> 按钮 <span class="circle"></span></button>
 ``` 
 
+* Dialog 居中:![](/images/dialog.jpg)
+```
+.wheel-dialog {
+  background: white;
+  position: fixed;
+  width: 10em;
+  height: 10em;
+  border-radius: 4px; // border 角度圆滑
+  /**
+   * 以下三行实现了 Dialog 居中，由于 Dialog 为固定定位，所以不可以用 display
+   */
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  &-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: fade_out(black,0.5);
+  }
+}
+```
+```
+<div>
+    <div className="wheel-dialog-mask">
+    </div>
+    <div className="wheel-dialog">
+        <header>提示</header>
+        <main>{props.children}</main>
+        <footer>
+            <button>ok</button>
+            <button>cancel</button>
+        </footer>
+    </div>
+</div>                
+```
+
 
 #### 控制台样式划线 
 > 表示样式不起效果
