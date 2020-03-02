@@ -1148,6 +1148,53 @@ setInterval(()=>{
     box-sizing:border-box
 }
 ```
+> 但是有一个问题，box-sizing 是无法继承的。如果每个子元素都手动添加 box-sizing: border-box 又过于麻烦
+```
+<div class="box">
+    <div class="box2"></div>
+</div>
+```
+```
+.box{
+    box-sizing: border-box;
+    border: 10px solid green;
+    width: 300px;
+    height: 300px;
+}
+
+// box2 的 width 仍只包括内容区，总宽度为(100+20)px
+.box2{
+    border: 10px solid blue;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+```
+> 解决方法：使用属性选择器
+```
+<div class="scope-box">
+    <div class="scope-box2"></div>
+</div>
+```
+```
+div[class^="scope-"] {
+    box-sizing: border-box;
+  }
+
+.scope-box{
+    box-sizing: border-box;
+    border: 10px solid green;
+    width: 300px;
+    height: 300px;
+}
+
+.scope-box2{
+    border: 10px solid blue;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+```
 
 ---
 
