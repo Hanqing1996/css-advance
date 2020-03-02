@@ -1117,6 +1117,27 @@ setInterval(()=>{
     </div>
 </div>                
 ```
+> left,top+transform 是很常见的套路。类似的还有：
+* Close 按钮位置:![](/images/close.jpg)
+```
+  dialog-close{
+    > svg{
+      width: 2em;
+      height: 2em;
+    }
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    transform: translate(-50%,50%);
+  }
+```
+```
+<div class='dialog-close'}>
+    <Icon name='close'></Icon>
+</div>
+```
+
+
 ---
 * box-sizing:border-box
 > 在 CSS 盒子模型的默认定义里，你对一个元素所设置的 width 与 height 只会应用到这个元素的内容区。如果这个元素有任何的 border 或 padding ，绘制到屏幕上时的盒子宽度和高度会加上设置的边框和内边距值。
@@ -1180,6 +1201,14 @@ setInterval(()=>{
 div[class^="scope-"] {
     box-sizing: border-box;
   }
+  // 属性选择器不能包括伪类
+  div[class^="scope-"]::after {
+    box-sizing: border-box;
+  }
+  div[class^="scope-"]::before {
+    box-sizing: border-box;
+  }
+
 
 .scope-box{
     box-sizing: border-box;
@@ -1195,8 +1224,36 @@ div[class^="scope-"] {
     background-color: red;
 }
 ```
-
+* svg 颜色填充
+```
+svg{
+    width:2em;
+    height:2em;
+    fill:blue
+}
+```
+```
+<div class="box">
+    <svg>
+        <use xlinkHref=`#close`></use>
+    </svg>
+</div>
+```
+> currentColor:svg 的颜色继承父元素的 color
+```
+.box{
+    color:blue
+    svg{
+        width:2em;
+        height:2em;
+        fill:currentColor
+    }
+}
+```
 ---
+
+
+
 
 
 #### 控制台样式划线 
