@@ -1,3 +1,24 @@
+#### class 类型为 string
+> 但是在浏览器中表现为数组
+
+![](/images/class.jpg)
+```   
+.box1{
+    width: 20px;
+    height: 30px;
+}
+.box2{
+    border: 5px solid green;
+}
+.box3{
+    background-color: red;
+}
+```
+```
+<div class="box1 box2 box3"></div>
+```
+
+
 #### position: absolute（绝对定位）：
 > 对象脱离文档流，此时偏移属性参照的是离自身最近的相对定位(position: relative)元素，如果没有相对定位的元素，则一直回溯到body元素。
 
@@ -1269,8 +1290,6 @@ button {
         margin-right: 0;
 }
 ```
-
-
 
 
 
