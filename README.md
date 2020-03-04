@@ -1,3 +1,11 @@
+#### 全局样式
+```
+* {margin: 0;padding: 0; box-sizing: border-box;}
+*::before{box-sizing: border-box}
+*::after{box-sizing: border-box}
+h1,h2,h3,h4,h5,h6{font-weight: normal}
+```
+
 #### class 类型为 string
 > 但是在浏览器中表现为数组
 
@@ -1288,6 +1296,68 @@ button {
     }
     &:last-child {
         margin-right: 0;
+}
+```
+
+#### 宽度由内容撑开
+> 比如 aside，文字的宽度撑开了 aside 的宽度，而不是一开始就把 aside 的高度写死
+```
+.aside {
+    h2 {
+        padding: 8px;
+    }
+> ul {
+    > li {
+        padding: 8px 16px;
+        min-width: 7em;
+    }
+ }
+}
+```
+> 比如 content，content 内的元素总高度决定了 content 的高度，而不是一开始就把 content 的高度写死
+
+
+#### flex-drection:row
+> 同排元素有同一高度（由最大高度元素决定）。所以事实上只需要设置最多一个元素的高度
+
+
+#### scss
+* 在某个  scss 文件中引用其他 scss 文件
+```
+@import '../_helper.scss';
+```
+* 子元素与父元素有相同的 class 前缀
+```
+.example-layout {
+  width: 100%;
+  height: 100%;
+  &-header {
+    background: $header-footer-color;
+  }
+```
+等价于
+```
+.example-layout {
+  width: 100%;
+  height: 100%;
+  > .example-layout-header {
+    background: $header-footer-color;
+  }
+```
+* @mixin 与 @include
+> 封装样式以供调用
+```
+// var.scss
+@mixin spin {
+  animation: spin 2s infinite linear;
+}
+```
+```
+// button.vue
+@import "src/var";
+
+.loading{
+    @include spin;
 }
 ```
 
