@@ -6,6 +6,29 @@
 h1,h2,h3,h4,h5,h6{font-weight: normal}
 ```
 
+#### input 之间的间距不应该由 input 实现
+```
+.form{
+  &-row{
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+```
+```
+<div class="form">
+    <div class="form-row">
+        <input type="text">
+    </div>
+    <div class="form-row">
+        <input type="password">
+    </div>
+</div>
+```
+
+#### pading/margin 应该为4的倍数
+
+
 #### class 类型为 string
 > 但是在浏览器中表现为数组
 
@@ -108,6 +131,7 @@ div{
 ---
 
 #### 文字两端对齐:![](/images/alignment.jpg)
+> 这种做法虽然实现了效果，但是是不可取的。因为 span 的宽度写死了，如果内容过长就会出现 bug 
 ```
 <div>
     <span>姓名</span><br>
@@ -135,6 +159,8 @@ span::after{
     border: 1px solid blue;
 }
 ```
+
+#### table 实现文字两端对齐
 ---
 #### [line-height 和 font-size 的关系](https://xiedaimala.com/tasks/0e9495f8-df67-44d3-bdd5-ae7e18e6be14/video_tutorials/197fe0f7-625e-4a01-8414-866f2b57b121)
 * 取决于字体(font-family)，yahei:1,sc:1.4(由字体设计师决定的)
@@ -1062,7 +1088,7 @@ td, th {
 }
 ```
 * transition:![](/images/trans.gif)
-> transition 表示的是一个过程
+> transition 表示的是一个过程。如果你想实现一个状态到另一个状态的缓慢渐变，你就应该使用 transition
 ```
 <div class="box"></div>
 ```            
@@ -1086,7 +1112,23 @@ setInterval(()=>{
   box.style.transform=`translateX(${n}%)`
 },1000)
 ```
-
+> 以下例子中,inpyt 的 bow-shadow 由 "box-shadow:0px 0px 0px 20px fade_out($main-color,1);" 变为 "0px 0px 0px 20px fade_out($main-color,0.1)" 花了10s
+![](/images/input.gif)
+```
+// scss
+.input{
+  transition: box-shadow 10s;
+  box-shadow:0px 0px 0px 20px fade_out($main-color,1);
+  &:focus{
+    box-shadow: 0px 0px 0px 20px fade_out($main-color,0.1);
+  }
+}
+```
+```
+<input type='text'/>
+```
+* bow-shadow
+> bow-shadow 生成器[](https://www.cssmatic.com/box-shadow)
 * [涟漪按钮](https://github.com/Hanqing1996/ripple-button):![](/images/ripple.gif)
 
 * 调整 z-index 令文字在背景 span 上方
@@ -1321,6 +1363,55 @@ button {
 > 同排元素有同一高度（由最大高度元素决定）。所以事实上只需要设置最多一个元素的高度
 
 
+
+#### input 标准样式![](/images/input-starand.gif)
+```
+// scss
+.wheel-input{
+  border:1px solid #ddd;
+  line-height: 22px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: box-shadow 3s;
+  box-shadow: 0px 2px 14px -6px fade_out(#1890ff,0.9);
+  &:focus{
+    outline: none;
+    border-color:$main-color ;
+    box-shadow: 0px 2px 14px -6px fade_out(#1890ff,0.5);
+  }
+}
+```
+```
+<input type="text"/>
+```
+
+#### button 标准样式![](/images/button-s.gif)
+```
+// scss
+$font-size: 14px;
+$button-height: 32px;
+$border-radius:4px
+$border-color-hover: #666;
+$border-color: #999;
+$button-bg: white;
+$button-active-bg:#eee;
+
+.button {
+  margin: 1em;
+  white-space: nowrap;font-size: $font-size; height: $button-height; padding: 0em 1em;
+  border-radius: $border-radius; border: 1px solid $border-color;
+  background: $button-bg;
+  display: inline-flex; justify-content: center; align-items: center;
+  &:hover { border-color: $border-color-hover; }
+  &:active { background-color: $button-active-bg; }
+  &:focus { outline: none; }
+}
+
+```
+```
+<button>按钮</button>
+```
+
 #### scss
 * 在某个  scss 文件中引用其他 scss 文件
 ```
@@ -1358,6 +1449,15 @@ button {
 
 .loading{
     @include spin;
+}
+```
+* +
+> 如果 .form-input 的前面有 .form-label,则为.form-input添加对应属性
+```
+.form{
+    &-label + &-input{
+    margin-left: 4px;
+    }
 }
 ```
 
