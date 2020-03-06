@@ -1,3 +1,30 @@
+## 写 css 的原则
+1. 用 scss
+2. 不要写死子元素的宽高
+3. 按需求写样式
+4. 职责分明
+5. 可复用组件，不要写 margin（应该在实际场景中设置）
+6. 减少 div 嵌套
+```
+<div class="wrapper">
+    <div>//<-这种 div 就是多余的，必须去掉
+        <div class="content1"></div>
+        <button>deal conten1</button>
+    </div>
+    <div>
+        <div class="content2"></div>
+        <button>deal conten2</button>
+    </div>
+    <div>
+        <div class="content3"></div>
+        <button>deal conten3</button>
+    </div>
+
+<div>
+```
+以上代码最直观的恶果就是 css。无法简便地处理第一个 button 和最后一个 button
+
+
 #### 全局样式
 ```
 * {margin: 0;padding: 0; box-sizing: border-box;}
@@ -6,7 +33,52 @@
 h1,h2,h3,h4,h5,h6{font-weight: normal}
 ```
 
-#### input 之间的间距不应该由 input 实现
+#### 按需求写样式
+* 多行 input
+```
+<div>
+    <div class="input-row">
+        <input type="text"/>
+    </div>
+    <div class="input-row">
+        <input type="text"/>
+    </div>
+    <div class="input-row">
+        <input type="text"/>
+    </div>
+    <div class="input-row">
+        <input type="text"/>
+    </div>
+</div>
+```
+显然第一行 input 不需要 margin-top。最后一行 input 不需要 margin-bittom
+```
+.input-row{
+    margin:4px,0
+    &:first-child{
+        margin-top:0;
+    }
+    &:last-child{
+        margin-bottom:0;
+    }
+}
+```
+* 同排多个 button
+``` 
+.form-button{
+  @include button-style;
+  margin: 0.5em;
+  &:first-child{
+    margin-left:0;
+  }
+  &:last-child{
+    margin-right: 0;
+  }
+}
+```
+
+#### 职责要分明
+> input 之间的间距不应该由 input 实现
 ```
 .form{
   &-row{
@@ -130,37 +202,46 @@ div{
 ```
 ---
 
-#### 文字两端对齐:![](/images/alignment.jpg)
-> 这种做法虽然实现了效果，但是是不可取的。因为 span 的宽度写死了，如果内容过长就会出现 bug 
+#### label 文字两端对齐:![](/images/label.jpg)
+> 这种做法虽然实现了效果，但是是不可取的。因为 label 的宽度写死了，如果用户填写内容过长就会出现 bug 
 ```
-<div>
-    <span>姓名</span><br>
-    <span>联系方式</span>
-</div>
-```
-```
-div{
-    border: 1px solid red;
-    font-size: 20px;
-}
-span{
-    border: 1px solid green;
-    display: inline-block;
-    width:5em;
+  .form-label{
+    width:3.5em;
     text-align: justify;
-    line-height: 20px;
-    overflow: hidden;
-    height: 20px;
-}
-span::after{
-    content:'';
-    display: inline-block;
-    width: 100%;
-    border: 1px solid blue;
-}
+    height: 22px;
+    &::after{
+      overflow: hidden;
+      content:'';
+      display: inline-block;
+      width: 100%;
+    }
+  }
 ```
 
-#### table 实现文字两端对齐
+#### table 实现 form 布局:![](/images/table-form.jpg)
+> 这样做的好处在于多排 label 在内容增长的情况下始终保持对齐（没有解决文字两端对齐，事实上这是中国人才会有的习惯）
+```
+  <table >
+    <tr>
+      <td>用户名</td>
+      <td><input type="text"></td>
+    </tr>
+    <tr>
+      <td>密码</td>
+      <td><input type="password"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <button>提交</button>
+        <button>返回</button>
+      </td>
+    </tr>
+  </table>
+```
+
+
+
 ---
 #### [line-height 和 font-size 的关系](https://xiedaimala.com/tasks/0e9495f8-df67-44d3-bdd5-ae7e18e6be14/video_tutorials/197fe0f7-625e-4a01-8414-866f2b57b121)
 * 取决于字体(font-family)，yahei:1,sc:1.4(由字体设计师决定的)
@@ -1412,6 +1493,10 @@ $button-active-bg:#eee;
 <button>按钮</button>
 ```
 
+#### table 的 css
+* td 不能设置 margin，只能设置 padding
+* tr 既不能设置 margin，也不能设置 padding
+
 #### scss
 * 在某个  scss 文件中引用其他 scss 文件
 ```
@@ -1431,9 +1516,10 @@ $button-active-bg:#eee;
 .example-layout {
   width: 100%;
   height: 100%;
-  > .example-layout-header {
+}
+.example-layout-header {
     background: $header-footer-color;
-  }
+}
 ```
 * @mixin 与 @include
 > 封装样式以供调用
@@ -1460,8 +1546,30 @@ $button-active-bg:#eee;
     }
 }
 ```
+* >
+> 子选择器
 
-
+```
+<div className={'box1'}>
+    <div className={'box2'}>child</div>
+</div>
+```
+```
+.box1{
+  > .box2{
+    background: red;
+  }
+}
+```
+> 孙代及以下不生效
+```
+// 无效
+<div className={'box1'}>
+    <div>
+        <div className={'box2'}>child</div>
+    </div>
+</div>
+```
 
 #### 控制台样式划线 
 > 表示样式不起效果
