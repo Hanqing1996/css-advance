@@ -24,6 +24,10 @@
 ```
 以上代码最直观的恶果就是 css。无法简便地处理第一个 button 和最后一个 button
 
+#### px 与 em
+* 涉及 padding,margin 应该使用 px ,且应该为4的倍数
+* 涉及字体大小，比如 button,label,其 width 应该用 em
+
 
 #### 全局样式
 ```
@@ -98,8 +102,6 @@ h1,h2,h3,h4,h5,h6{font-weight: normal}
 </div>
 ```
 
-#### pading/margin 应该为4的倍数
-
 
 #### class 类型为 string
 > 但是在浏览器中表现为数组
@@ -123,7 +125,40 @@ h1,h2,h3,h4,h5,h6{font-weight: normal}
 
 
 #### position: absolute（绝对定位）：
-> 对象脱离文档流，此时偏移属性参照的是离自身最近的相对定位(position: relative)元素，如果没有相对定位的元素，则一直回溯到body元素。
+> 对象脱离文档流，此时偏移属性参照的是离自身最近的非 static 定位元素（relative,absolute），如果没有这样的元素，则一直回溯到body元素。
+
+![](/images/absolute.jpg)
+```
+<div class='box'>
+  <div class="box2">
+    <div class="box3"></div>
+  </div>
+</div>
+```
+```
+.box{
+  width:100px;
+  height:100px;
+  border:1px solid red;
+  position:relative;
+}
+.box2{
+  width:50px;
+  height:50px;
+  background-color:green;
+  position:absolute;
+  top:0;
+  right:0;
+}
+.box3{
+  width:20px;
+  height:20px;
+  background-color:yellow;
+  position:absolute;
+  bottom:0; /* 相对于 box2 的底部定位 */
+  right:0;
+}
+```
 
 #### position: fixed（固定定位）：
 > 是一种特殊的绝对定位，也脱离文档流，但偏移定位是以窗口也就是html这个根节点为参考。当滚动浏览器窗口出现滚动条时，对象不会随着滚动。
@@ -411,10 +446,22 @@ header>button{position: absolute;top:0;right:0}
 ---
 ![](/images/3.gif)
 * [mobile-first](https://xiedaimala.com/tasks/f61cdba2-cea3-4da1-90b6-3f37bd8d6d5b/video_tutorials/5860f76c-534c-4e3f-8f44-5bb8cc4c019f) 
+> 这里指的是移动端网页，不是 APP 页面
+
     * 移动端没有 hover;
-    * 移动端不监听click事件,只监听touch 事件
-    * 移动端没有滚动条
+    * 移动端大多监听touch 事件（click 也支持，手指点一下就会触发,但原生的 click 在移动端上会有延迟）。注意 PC 端不支持 touch 事件。
+    * 在移动端上，常常通过 touchStart,touchEnd 来判定用户滑动方向（对此目前有很多封装好的库，比如 jquery 的 swipe.js,vue 的 vue-swipe）
+    * 移动端没有 resize 事件（PC 端页面宽度不一定等于设备宽度，但是移动端面宽度一定等于设备宽度）
+    * 移动端没有滚动条（只在 scroll 期间显示原生滚动条，滚动条不可拖拽）
+    * 移动端不必设置 scroll 事件，scroll 事件（即滚动条和内容滚动）会由 touch 行为自动触发
+    ```
+    // 不必设置 onscroll
+    <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+    ```
+    * 但是移动端允许开发者在移动端设置 scroll 事件满足特殊要求（比如使用开发者自己制作的滚动条，且只在 scroll 期间显示滚动条，那么接需要在 scroll 回调函数里设置）
+    * 移动端所有鼠标事件（比如 mouseup,mousemove,mousedown）全部失效
     * 移动端不用管IE
+
 ```
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
@@ -437,6 +484,14 @@ button{display: block}
     <li><a href="#">导航</a></li>
 </ul>
 ```
+
+
+#### 应该有一个PC端的项目，现在想兼容移动端，应该做哪些事?
+1. 可能需要增设 touch 事件（比如项目涉及轮播图，希望用户在移动端上能滑动翻阅）
+2. 可能需要隐藏滚动条
+3. 移动端的 scroll 是由 touch 负责的。那么当 touch 与别的UI交互任务（比如下拉更新）有关时就要注意功能正交，不要混起来
+
+
 ---
 #### [flex布局](https://xiedaimala.com/tasks/50bf9d77-093d-4976-977e-1022e52efcdf/video_tutorials/c36ab198-e431-4237-94d0-ae834a9c9ce2)
 * flex-wrap
@@ -1168,6 +1223,7 @@ td, th {
   transform:translateX(600%)
 }
 ```
+---
 * transition:![](/images/trans.gif)
 > transition 表示的是一个过程。如果你想实现一个状态到另一个状态的缓慢渐变，你就应该使用 transition
 ```
@@ -1208,10 +1264,12 @@ setInterval(()=>{
 ```
 <input type='text'/>
 ```
+---
 * bow-shadow
 > bow-shadow 生成器[](https://www.cssmatic.com/box-shadow)
+---
 * [涟漪按钮](https://github.com/Hanqing1996/ripple-button):![](/images/ripple.gif)
-
+---
 * 调整 z-index 令文字在背景 span 上方
 ```
 .button{
@@ -1231,7 +1289,7 @@ setInterval(()=>{
 ```
 <button class="button"> 按钮 <span class="circle"></span></button>
 ``` 
-
+---
 * Dialog 居中:![](/images/dialog.jpg)
 ```
 .wheel-dialog {
@@ -1377,6 +1435,7 @@ div[class^="scope-"] {
     background-color: red;
 }
 ```
+---
 * svg 颜色填充
 ```
 svg{
@@ -1421,7 +1480,7 @@ button {
         margin-right: 0;
 }
 ```
-
+---
 #### 宽度由内容撑开
 > 比如 aside，文字的宽度撑开了 aside 的宽度，而不是一开始就把 aside 的高度写死
 ```
@@ -1439,11 +1498,11 @@ button {
 ```
 > 比如 content，content 内的元素总高度决定了 content 的高度，而不是一开始就把 content 的高度写死
 
-
+---
 #### flex-drection:row
 > 同排元素有同一高度（由最大高度元素决定）。所以事实上只需要设置最多一个元素的高度
 
-
+---
 
 #### input 标准样式![](/images/input-starand.gif)
 ```
@@ -1465,6 +1524,7 @@ button {
 ```
 <input type="text"/>
 ```
+---
 
 #### button 标准样式![](/images/button-s.gif)
 ```
@@ -1492,11 +1552,91 @@ $button-active-bg:#eee;
 ```
 <button>按钮</button>
 ```
-
+---
 #### table 的 css
 * td 不能设置 margin，只能设置 padding
 * tr 既不能设置 margin，也不能设置 padding
 
+---
+#### overflow:auto 和 overflow:scroll 的区别 
+* overflow:auto:![](/images/auto.jpg)
+> 内容不超出窗口长度情况下不显示滚动条
+* overflow:scroll:![](/images/scroll2.jpg)
+> 不管内容如何，一定有滚动条
+```
+<div class='box'></div>
+```
+```
+.box{
+  width:100px;
+  height:100px;
+  border:1px solid red;
+  overflow:scroll
+}
+```
+
+---
+#### overflow 在内容为 position:absolute 时依然奏效
+:![](/images/hidden.jpg)
+```
+<div class='box'>
+  <div class='content'>123456789101112</div>
+</div>
+```
+```
+.box{
+  width:52px;
+  height:100px;
+  border:1px solid red;
+  position:relative;
+  overflow:hidden
+}
+.content{
+  position:absolute;
+  border:1px solid green;
+}
+```
+---
+#### scrollHeight
+> 获取滚动内容高度
+
+![](/images/scrollheight.jpg)
+
+```
+<div class="wrapper">
+  <div class="content"></div>
+</div>
+```
+```
+.wrapper{
+  width:100px;
+  height:200px;
+  overflow:scroll
+}
+
+.content{
+  width:100%;
+  height:400px;
+  background-color:red
+}
+```
+```
+const content=document.getElementsByClassName('content')[0]
+console.log(content.scrollHeight) // 400px
+```
+---
+* 下拉更新
+> 这其实是件挺麻烦的事情，要求如下
+1. contentTop为0时，可以下拉更新，但有下拉最大限度
+:![](/images/pull1.gif)
+2. contentTop不为0时，先下来至contentTop为0，才能进一步下拉更新
+:![](/images/pull2.gif)
+3. 下拉更新过程中，允许又往上拉
+:![](/images/pull3.gif)
+4. 下拉更新过程中，往上拉是有限度的，不能超过 content.scrollHeight
+:![](/images/pull4.gif)
+
+---
 #### scss
 * 在某个  scss 文件中引用其他 scss 文件
 ```
@@ -1570,6 +1710,7 @@ $button-active-bg:#eee;
     </div>
 </div>
 ```
+---
 
 #### 控制台样式划线 
 > 表示样式不起效果
