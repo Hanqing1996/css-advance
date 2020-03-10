@@ -1,6 +1,13 @@
 ## 写 css 的原则
 1. 用 scss
 2. 不要写死子元素的宽高
+```
+// 要求 block 高度为40px
+.block{
+    font-size:14px;
+    line-height:40px;
+}
+```
 3. 按需求写样式
 4. 职责分明
 5. 可复用组件，不要写 margin（应该在实际场景中设置）
@@ -444,6 +451,64 @@ header>button{position: absolute;top:0;right:0}
 </header>
 ```
 ---
+
+#### 清除浮动的效果
+* 清除浮动前
+![](/images/beforeclear.jpg)
+```
+// jsx
+{cityList.map(([letter, list]) => {
+    return (
+        <div className={dialogClass('citysBlock')}>
+            <h4 className={dialogClass('letter')}>{letter}</h4>
+            {list.map(city =>
+                <div className={dialogClass('city')}>{city}</div>
+            )}
+        </div>
+    )
+})}
+```
+```
+// scss
+.wheel-citySelector{
+    &-citysBlock{
+    }
+    &-letter{
+      float:left;
+      background-color: red;
+    }
+    &-city{
+      float: left;
+    }
+}
+```
+* 清除浮动后
+![](/images/afterclear.jpg)
+```
+// scss
+.wheel-citySelector{
+    &-citysBlock{
+
+      /* 以下三句话起到清除浮动的效果。这三句话也可以换成一句 overflow:hidden */
+      content: '';
+      display: block;
+      clear: both;
+
+
+      border: 1px solid black;
+    }
+    &-letter{
+      float:left;
+      background-color: red;
+    }
+    &-city{
+      float: left;
+    }
+}
+```
+
+
+
 ![](/images/3.gif)
 * [mobile-first](https://xiedaimala.com/tasks/f61cdba2-cea3-4da1-90b6-3f37bd8d6d5b/video_tutorials/5860f76c-534c-4e3f-8f44-5bb8cc4c019f) 
 > 这里指的是移动端网页，不是 APP 页面
@@ -1635,6 +1700,16 @@ console.log(content.scrollHeight) // 400px
 :![](/images/pull3.gif)
 4. 下拉更新过程中，往上拉是有限度的，不能超过 content.scrollHeight
 :![](/images/pull4.gif)
+
+---
+#### 怎么让 header 的高度为 50px
+> 设置 line-height
+```
+&-header{
+    font-size: 20px;
+    line-height: 50px;
+}
+```
 
 ---
 #### scss
