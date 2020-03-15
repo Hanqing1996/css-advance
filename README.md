@@ -31,6 +31,70 @@
 ```
 以上代码最直观的恶果就是 css。无法简便地处理第一个 button 和最后一个 button
 
+
+#### 移动端页面布局
+> 导航栏固定于页面底部，内容可滑动
+
+![](/images/vh.gif)
+```
+// App.vue
+<template>
+    <router-view/>
+</template>
+<script lang="ts">
+    export default {
+        name: 'App'
+    }
+</script>
+<style lang="scss">
+    /*必须添加全局样式，不然 body 的 padding,marhin 会导致页面有两个滚动*/
+    * {margin: 0;padding: 0; box-sizing: border-box;}
+    *::before {box-sizing: border-box}
+    *::after {box-sizing: border-box}
+    h1, h2, h3, h4, h5, h6 {font-weight: normal}
+</style>
+```
+```
+// money.vue
+<template>
+    <div class="wrapper">
+        <div class="content">
+            <p>money</p>
+            <p>money</p>
+            <p>money</p>
+            <p>money</p>
+            <p>money</p>
+            ...
+            <p>money</p>
+            <p>money</p>
+        </div>
+        <Nav/>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Money"
+    }
+</script>
+
+<style lang="scss" scoped>
+    .wrapper{
+        height: 100vh; /* 保证 wrapper 高度为视口高度的100% */
+        display: flex;
+        flex-direction: column;
+        border:1px solid black;
+     > .content{
+         border:1px solid red;
+         overflow: auto; /* 内容添加滚动条 */
+         flex-grow: 1; /* 内容高度较小时，将多余空间都给 content */
+     }
+    }
+</style>
+```
+
+
+
 #### px 与 em
 * 涉及 padding,margin 应该使用 px ,且应该为4的倍数
 * 涉及字体大小，比如 button,label,其 width 应该用 em
@@ -38,11 +102,28 @@
 
 #### 全局样式
 ```
-* {margin: 0;padding: 0; box-sizing: border-box;}
+* {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+}
 *::before{box-sizing: border-box}
 *::after{box-sizing: border-box}
 h1,h2,h3,h4,h5,h6{font-weight: normal}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+ul, ol{
+  list-style: none;
+}
+button, input{
+  font: inherit;
+}
+:focus{
+  outline: none;
+}
 ```
+---
 
 #### 按需求写样式
 * 多行 input
@@ -130,7 +211,9 @@ h1,h2,h3,h4,h5,h6{font-weight: normal}
 <div class="box1 box2 box3"></div>
 ```
 
+#### border-radius:0.5 默认是宽度的50%
 
+---
 #### position: absolute（绝对定位）：
 > 对象脱离文档流，此时偏移属性参照的是离自身最近的非 static 定位元素（relative,absolute），如果没有这样的元素，则一直回溯到body元素。
 
@@ -281,7 +364,9 @@ div{
     </tr>
   </table>
 ```
-
+---
+#### 文字居中：什么时候用 line-height 居中，什么时候用 flex 居中
+> 确定文字一定只有一行，就用 line-height 居中，否则用 flex 居中
 
 
 ---
@@ -421,7 +506,7 @@ el.style.height = `${height}px`
 ![](/images/1.jpg)
 * 浮动布局：导航栏横向布局
 ```
-.clearfix:after{
+.clearfix::after{
 /*这三句话都要*/
 content: '';
 display: block;
@@ -1100,6 +1185,24 @@ display:none
 ```
 效果:![](/images/23.jpg)
 ---
+* 将 input 与 label 关联
+> 新手
+```
+<label for="xxx">
+    备注
+</label>
+<input id="xxx" type="text">
+```
+> 老手
+```
+<label>
+    <span class="notes">备注</span>
+    <input type="text">
+</label>
+```
+
+
+---
 * min-width,max-width:![](/images/3em.jpg)![](/images/9em.jpg)
 > box 的宽度变化范围是5em到8em。内容少于5个字时，box宽度为 5em,内容多于8个字时，box宽度为 8em,
 ```
@@ -1701,6 +1804,8 @@ console.log(content.scrollHeight) // 400px
 4. 下拉更新过程中，往上拉是有限度的，不能超过 content.scrollHeight
 :![](/images/pull4.gif)
 
+
+
 ---
 #### 怎么让 header 的高度为 50px
 > 设置 line-height
@@ -1710,7 +1815,156 @@ console.log(content.scrollHeight) // 400px
     line-height: 50px;
 }
 ```
+---
+#### button 的 border-bottom 过长，如何解决
+![](/images/newTag.jpg)
+```
+<button>新增标签</button>
+```
+```
+button{
+  background:transparent;
+  border:none;
+  border-bottom:1px solid black
+}
+```
+> 解决方法：调整 padding
 
+![](/images/paddingTag.jpg)
+```
+button{
+  background:transparent;
+  border:none;
+  border-bottom:1px solid black;
+  padding:0 1px;/*慢慢调整，直至满意*/
+}
+```
+---
+
+#### line-height
+
+#### tab
+> 想要让被选中的 tab-item 有底边，不能通过 border 实现。因为 border 的有无会影响 tab-item 的高度。
+
+![](/images/tab.jpg)
+
+```
+<ul class="types">
+    <li class="selected">收入</li>
+    <li>支出</li>
+</ul>
+```
+```
+.types{
+    display: flex;
+    flex-direction: row;
+    background-color: #c4c4c4;
+    font-size: 24px;
+    > li{
+        width: 50%;
+        height: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        text-align: center;
+        &.selected::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #333;
+        }
+    }
+}
+```
+---
+#### text-align:right
+> 不要用 padding-left
+
+![](/images/right.jpg)
+```
+.output{
+    text-align: right;
+}
+```
+---
+#### 计算器布局
+
+> 不可以用 flex 布局，因为 flex 布局某排高度由取最高元素决定，在处理 OK 是会有问题
+
+![](/images/calculator.jpg)
+```
+<div class="number-pad">
+    <div class="output">100</div>
+    <div class="buttons">
+        <button>1</button><button>2</button>
+        <button>3</button><button>删除</button>
+        <button>4</button><button>5</button>
+        <button>6</button><button>清空</button>
+        <button>7</button><button>8</button>
+        <button>9</button>
+        <button class="ok">OK</button>
+        <button class="zero">0</button>
+        <button>.</button>
+    </div>
+</div>
+```
+```
+.number-pad{
+    >.output{
+        font-size: 36px;
+        font-family: Consolas;
+        padding: 9px 0;
+        text-align: right;
+    }
+    >.buttons{
+        > button{
+            width: 25%;
+            height: 64px;
+            float: left;
+            &.ok{
+                height: 128px;
+                float: right;
+            }
+            &.zero{
+                width:50%;
+            }
+        }
+    }
+}
+```
+---
+#### 颜色渐深
+![](/images/darken.jpg)
+```
+button{
+    $bg: #f2f2f2;
+    &:nth-child(1) {
+        background: $bg;
+    }
+    &:nth-child(2), &:nth-child(5) {
+        background: darken($bg, 4%);
+    }
+    &:nth-child(3), &:nth-child(6), &:nth-child(9) {
+        background: darken($bg, 4*2%);
+    }
+    &:nth-child(4), &:nth-child(7), &:nth-child(10) {
+        background: darken($bg, 4*3%);
+    }
+    &:nth-child(8), &:nth-child(11), &:nth-child(13) {
+        background: darken($bg, 4*4%);
+    }
+    &:nth-child(14) {
+        background: darken($bg, 4*5%);
+    }
+    &:nth-child(12) {
+        background: darken($bg, 4*6%);
+    }
+}
+```
 ---
 #### scss
 * 在某个  scss 文件中引用其他 scss 文件
@@ -1752,7 +2006,7 @@ console.log(content.scrollHeight) // 400px
     @include spin;
 }
 ```
-* +
+* 加法
 > 如果 .form-input 的前面有 .form-label,则为.form-input添加对应属性
 ```
 .form{
@@ -1761,8 +2015,7 @@ console.log(content.scrollHeight) // 400px
     }
 }
 ```
-* >
-> 子选择器
+*  子选择器
 
 ```
 <div className={'box1'}>
@@ -1785,6 +2038,28 @@ console.log(content.scrollHeight) // 400px
     </div>
 </div>
 ```
+* .item.selected{}
+> 选择 class 包含 item 和 selected 的元素
+* % 
+> placeholder:注意原理是复制选择器，不是复制样式
+```
+/*var.scss*/ 
+%clearFix {
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
+```
+```
+@import "~@/assets/style/var.scss";
+
+.buttons{
+    @extend %clearFix
+}
+```
+
 ---
 
 #### 控制台样式划线 
