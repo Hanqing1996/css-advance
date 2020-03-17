@@ -2059,8 +2059,35 @@ button{
     @extend %clearFix
 }
 ```
-
 ---
+#### 在 justify-content: space-between; 的基础上微调 item 位置
+![](/images/notes.jpg)
+
+> 想调整 notes 离 tags 更近
+```
+<li  class="record">
+    <span>{{tags}}</span>
+    <span>{{notes}}</span>
+    <span>{{amount}}</span>
+</li>
+```
+```
+.record{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.notes{
+    margin-right: auto;
+    margin-left: 8px;
+    color:#999
+}
+```
+---
+#### 优先级
+选择器越多，优先级越高
+---
+
 
 #### 控制台样式划线 
 > 表示样式不起效果
