@@ -595,7 +595,7 @@ header>button{position: absolute;top:0;right:0}
 
 
 ![](/images/3.gif)
-* [mobile-first](https://xiedaimala.com/tasks/f61cdba2-cea3-4da1-90b6-3f37bd8d6d5b/video_tutorials/5860f76c-534c-4e3f-8f44-5bb8cc4c019f) 
+* [移动端交互特点](https://xiedaimala.com/tasks/f61cdba2-cea3-4da1-90b6-3f37bd8d6d5b/video_tutorials/5860f76c-534c-4e3f-8f44-5bb8cc4c019f) 
 > 这里指的是移动端网页，不是 APP 页面
 
     * 移动端没有 hover;
@@ -611,29 +611,42 @@ header>button{position: absolute;top:0;right:0}
     * 但是移动端允许开发者在移动端设置 scroll 事件满足特殊要求（比如使用开发者自己制作的滚动条，且只在 scroll 期间显示滚动条，那么接需要在 scroll 回调函数里设置）
     * 移动端所有鼠标事件（比如 mouseup,mousemove,mousedown）全部失效
     * 移动端不用管IE
+---
+#### 响应式布局和移动端布局的区别与联系
+* 响应式意味着你要写多套 css,移动端布局意味着你只需要写一套 css
+* 响应式适配各种终端，而移动端只适配手机。两者属于一种包含关系。
+* 响应式布局有可能造成冗余的代码较多（传统式响应式布局，仅依赖于媒体查询，控制不同的页面布局），移动端布局冗余代码较少
+* 响应式布局中的代码一部分可以分离出来直接应用于移动端
+* 如果设计师要你做响应式页面，需要适配n个终端，你就要问他要n套设计图，写n套 @media (min-width: ...px)
+---
+#### 响应式布局的原则
+> mobile first。即 @media 的内容是 PC 端的 css。PC 端才是需要额外配置的。
 
+#### 两套页面
+> 响应式实在代码太冗余了！为什么不直接一个设备一个单独的网页呢？
+* [为什么百度、淘宝之类的大公司网页不使用响应式，而是独立开发一套手机页面？](https://www.zhihu.com/question/38065402/answer/74969743)
+> 可以做到，由后端实现。即用户在手机上访问的网页和PC上访问的压根不是同一个
+```
+if deviceType='mobile'
+    render　'mobile_index.html'
+else
+    render 'pc_index.html'
+```
+
+#### 响应式已死
+> 事实上国内大多数网页都不是响应式的，而是采用不同设备访问不同域名网页的方案。
+* 移动端淘宝首页:https://item.taobao.com/
+* PC端淘宝首页:https://ai.m.taobao.com/
+> 响应式布局衰落的原因之一是PC桌面交互和移动端实在相差巨大。只有一些单纯用于展示信息，不需要过多交互的网页，才考虑使用响应式布局。
+
+#### meta viewport 是个什么玩意?
+> 注意无论是写在响应式布局的html，还是只适配手机的html,都要加这句话。因为这是专门解决手机浏览器历史遗留问题的。
+
+> 在专门为移动端做适配的方案出现之前，在手机上的浏览器进行页面访问时会存在按比例缩小的问题（比如一行标题在PC端网页上占宽度1/20,那么在手机上也是1/20,用户可以放大查看）。所以我们必须加上下面代码，以此告诉手机浏览器：我已经做了手机网页适配，请不要再缩放比例了。
 ```
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-/*mobile端,button显示,nav默认不显示*/
-button{display: block}
-.nav{display:none}
-
-/*其它设备,button不显示,nav显示*/
-@media (min-width: 600px){
-    .nav{display: block}
-    .menu{display: none;}
-}
-
-<button class="menu">菜单</button>
-<ul class="nav">
-    <li><a href="#">导航</a></li>
-    <li><a href="#">导航</a></li>
-    <li><a href="#">导航</a></li>
-    <li><a href="#">导航</a></li>
-    <li><a href="#">导航</a></li>
-</ul>
 ```
+
 
 
 #### 应该有一个PC端的项目，现在想兼容移动端，应该做哪些事?
@@ -641,6 +654,162 @@ button{display: block}
 2. 可能需要隐藏滚动条
 3. 移动端的 scroll 是由 touch 负责的。那么当 touch 与别的UI交互任务（比如下拉更新）有关时就要注意功能正交，不要混起来
 
+
+#### 移动端页面的总高度应该要减掉上下导航栏的高度
+
+
+#### 动态 rem
+> 这个方案是只给手机用的，不用到 pc 上。即响应式页面不存在这个玩意。
+
+* px
+> 像素。网页的默认 font-size 是16px。chrome 规定最小 font-size 是12px。也就谁说哪怕我们写了 font-size:10px 也无法覆盖。
+* em
+以字为单位
+> 一个'm'的宽度(注意是宽度，不是高度哦)
+
+> 1em=font-szie大小
+* rem
+> 表示根元素(即html)的 font-size。em 和 rem 毫无关系。
+```
+默认情况下，2rem表示是32px
+```
+* vh
+3vh 表示视口高度的3%,vw 同理。
+---
+## 百分比布局和按比例缩放
+> 是同一页面在不同手机上的适配方案
+
+#### 百分比布局
+> 每个 child 占宽度40%
+
+> 缺点在于由于宽度不一定，我们无法根据宽度设置高度。比如我们做不到高度是宽度的1/2
+
+![](/images/rate2.jpg)
+```
+<div class="parent">
+  <div class="child">1</div>
+  <div class="child">2</div>
+  <div class="child">3</div>
+  <div class="child">4</div>
+</div>
+```
+```
+*{margin:0,padding:0}
+.child{
+  background:#ddd;
+  margin-left:5%;
+  margin-right:5%;
+  margin-top:10px;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+
+.child{
+  float:left;
+  width:40%;
+}
+
+/*清除浮动*/
+.parent{
+  content: '';
+  display: block;
+  clear: both;
+}
+```
+#### 按比例缩放
+> 以宽度为基准。比如某元素在 iphone6 上宽度占比为1/10,那么在 iphone6 plus 上其宽度占比仍未1/10。该元素的高度与宽度之比不变。
+
+> 这样做可能的结果就是，在某手机上不需要滚动条的页面，在另一手机上却需要上下滚动查看。我们认为这是可以接受的，因为如果相反以高度为基准，那么手机页面就可能需要左右滑动查看。这是违反用户体验的。
+
+#### 动态 rem
+> 动态 rem 是实现按比例缩放的一种手段。
+
+> 原理就是通过js的骚操作，让html的font-size等于页面总宽度。然后用rem操纵元素宽度。
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+ <script>
+     var pageWidth = window.innerWidth
+     document.write('<style>html{font-size:'+pageWidth+'px;}</style>')
+ </script>
+ <style>
+*{
+    margin:0;
+    padding:0;
+}
+*{
+    box-sizing: border-box;
+}
+
+body{
+  font-size:16px;
+}
+.child{
+  background:#ddd;
+  width:0.4rem;
+  height:0.2rem;
+  margin:0.05rem 0.05rem;
+  float:left;
+}
+
+/*清除浮动*/
+.clearFix::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+ </style>
+</head>
+<body>
+<div class="parent clearFix">
+  <div class="child">1</div>
+  <div class="child">2</div>
+  <div class="child">3</div>
+  <div class="child">4</div>
+</div>
+</body>
+</html>
+```
+#### 动态 rem 的好处
+> 在使用动态 rem 后，某个页面在所有的手机屏幕上都遵循一个原则，即元素宽度与页面总宽度占比为固定值。
+
+> 这意味，设计师只需要给我们一张移动端设计稿。这张设计稿用于指定该页面上，某个元素宽度与页面总宽度占比，以及元素自身宽度与高度的比例关系。而不是像过去一样小米需要一张设计稿，苹果需要一张设计稿，三星需要一张设计稿。这极大的减轻了设计师和前端开发者的工作量。
+
+
+#### [PX2REM](https://xiedaimala.com/tasks/37a886be-169c-4a99-8bfb-1a993be8119d)
+> 在 scss 下，我们可以通过 PX2REM，实现自动计算 rem。这不是啥本质上的技术革新，只是省去我们写css时的计算时间。
+```
+@function px( $px ){
+  @return $px/$designWidth*10 + rem;
+}
+
+$designWidth : 640; // 640px 是设计稿的宽度
+
+.child{
+  width: px(320);
+  height: px(160);
+  margin: px(40) px(40);
+  border: 1px solid red;
+  float: left;
+  font-size: 1.2em;
+}
+```
+scss 最后都会编译成浏览器能理解的 css。所以我们最后会得到
+```
+.child{
+  width: 0.5rem;
+  height: 0.4rem;
+  margin: 0.125rem 0.125rem;
+  border: 1px solid red;
+  float: left;
+  font-size: 1.2em;
+}
+```
 
 ---
 #### [flex布局](https://xiedaimala.com/tasks/50bf9d77-093d-4976-977e-1022e52efcdf/video_tutorials/c36ab198-e431-4237-94d0-ae834a9c9ce2)
@@ -1971,7 +2140,7 @@ button{
 ```
 @import '../_helper.scss';
 ```
-* 子元素与父元素有相同的 class 前缀
+* 两个元素有相同的 class 前缀
 ```
 .example-layout {
   width: 100%;
@@ -2037,6 +2206,12 @@ button{
         <div className={'box2'}>child</div>
     </div>
 </div>
+```
+> 如果要表示孙代及以下
+```
+grandpa{
+
+}
 ```
 * .item.selected{}
 > 选择 class 包含 item 和 selected 的元素
