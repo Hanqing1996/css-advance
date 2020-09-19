@@ -1,3 +1,38 @@
+#### css 的继承性
+* 关于文字样式的属性，都具有继承性。这些属性包括：color、 text-开头的、line-开头的、font-开头的。
+
+* 关于盒子、定位、布局的属性，都不能继承。
+#### css 的层叠性
+[参考这里](https://juejin.im/post/6844904182768467981#heading-2)
+---
+#### css 后代选择器
+参考[CSS选择器笔记-阮一峰](http://www.ruanyifeng.com/blog/2009/03/css_selectors.html)
+```
+<div>
+  <p>
+    <span>123</span>
+  </p>
+</div>
+```
+```
+div span{
+  color:green
+}
+```
+#### css 父子选择器
+```
+<div>
+  <p>
+    <span>123</span>
+  </p>
+</div>
+```
+```
+div>p{
+  color:green
+}
+```
+---
 ## 写 css 的原则
 1. 用 scss
 2. 不要写死子元素的宽高
